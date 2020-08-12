@@ -1,6 +1,14 @@
-//Función que se ejecuta una vez que se haya lanzado el evento de
-//que el documento se encuentra cargado, es decir, se encuentran todos los
-//elementos HTML presentes.
-document.addEventListener("DOMContentLoaded", function(e){
+var user = document.getElementById("user");
+var pass = document.getElementById("pass");
 
-});
+function enviarForm(){
+    if (user.value===null || user.value===""){
+        alert("Ingresa tu usuario")
+    }
+    if (pass.value===null || pass.value===""){
+        alert("Ingresa tu contraseña")
+    } else{
+        onclick=location.href='index2.html'
+    }
+    
+}
