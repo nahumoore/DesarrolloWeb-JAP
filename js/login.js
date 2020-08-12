@@ -7,8 +7,9 @@ function enviarForm(){
     }
     if (pass.value===null || pass.value===""){
         alert("Ingresa tu contraseña")
-    } else{
+    } 
+    if (pass.value.length > 0 && user.value.length > 0){
         onclick=location.href='index2.html'
+    }    
     }
     
-}
