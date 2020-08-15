@@ -6,6 +6,8 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
+  <meta name="google-signin-client_id" content="563765714465-iussk0anuuqhtvscuvrbjqvjqeqhu7ki.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
   <title>eMercado - Todo lo que busques está aquí</title>
 
   <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
@@ -25,7 +27,7 @@
       align-items: center;
       padding-top: 40px;
       padding-bottom: 40px;
-      background: url(../Workspace/img/wallpaper.jpg) no-repeat center center fixed;
+      background: url(./img/wallpaper.jpg);
     }
 
     .signin {
@@ -54,6 +56,7 @@
       <div class="col-12 forgot">
         <a href="#">¿Olvidaste tu contraseña?</a>
       </div>
+      <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
       </form>
     </div>
   </div>
