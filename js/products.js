@@ -11,8 +11,8 @@ function showCategoriesList(){
     let htmlContentToAppend = "";
     for(let i = 0; i < currentCategoriesArray.length; i++){
         let category = currentCategoriesArray[i];
-        if (((minCount == undefined) || (minCount != undefined && parseInt(category.productCount) >= minCount)) &&
-            ((maxCount == undefined) || (maxCount != undefined && parseInt(category.productCount) <= maxCount))){
+        if (((minCount == undefined) || (minCount != undefined && parseInt(category.cost) >= minCount)) &&
+            ((maxCount == undefined) || (maxCount != undefined && parseInt(category.cost) <= maxCount))){
 
             htmlContentToAppend += `
             <a href="category-info.html" class="list-group-item list-group-item-action">
@@ -23,13 +23,13 @@ function showCategoriesList(){
                     <div class="col">
                         <div class="d-flex w-100 justify-content-between">
                             <h4 class="mb-1">`+ category.name +`</h4>
-                            <small class="text-muted">` + category.soldCount + ` artículos</small>
+                            <small class="text-muted" style="font-weight: bold">` + category.soldCount + ` artículos</small>
                         </div>
                         <div class="d-flex w-100 justify-content-between">    
                             <p class="mb-1">` + category.description + `</p>
                         </div><br>    
                         <div class="d-flex w-100 justify-content-between">
-                        <p class="mb-1"> ${category.currency}: ${category.cost}</p>
+                        <p class="mb-1" style="font-weight: bold"> ${category.currency}: ${category.cost}</p>
                         </div>
                     </div>
                 </div>
