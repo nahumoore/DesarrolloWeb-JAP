@@ -1,5 +1,5 @@
-const ORDER_ASC_BY_NAME = "AZ";
-const ORDER_DESC_BY_NAME = "ZA";
+const ORDER_ASC_BY_COST = "+-";
+const ORDER_DESC_BY_COST = "-+";
 const ORDER_BY_PROD_COUNT = "Cant.";
 var currentCategoriesArray = [];
 var currentSortCriteria = undefined;
@@ -23,7 +23,7 @@ function showCategoriesList(){
                     <div class="col">
                         <div class="d-flex w-100 justify-content-between">
                             <h4 class="mb-1">`+ category.name +`</h4>
-                            <small class="text-muted" style="font-weight: bold">` + category.soldCount + ` artículos</small>
+                            <small class="text-muted" style="font-weight: bold">` + category.soldCount + ` artículos vendidos</small>
                         </div>
                         <div class="d-flex w-100 justify-content-between">    
                             <p class="mb-1">` + category.description + `</p>
@@ -44,14 +44,14 @@ function showCategoriesList(){
 
 function sortCategories(criteria, array){
     let result = [];
-    if (criteria === ORDER_ASC_BY_NAME)
+    if (criteria === ORDER_ASC_BY_COST)
     {
         result = array.sort(function(a, b) {
             if ( a.cost < b.cost ){ return -1; }
             if ( a.cost > b.cost ){ return 1; }
             return 0;
         });
-    }else if (criteria === ORDER_DESC_BY_NAME){
+    }else if (criteria === ORDER_DESC_BY_COST){
         result = array.sort(function(a, b) {
             if ( a.cost > b.cost ){ return -1; }
             if ( a.cost < b.cost ){ return 1; }
@@ -86,16 +86,16 @@ document.addEventListener("DOMContentLoaded", function(e){
     getJSONData(PRODUCTS_URL).then(function(resultObj){
       if (resultObj.status === "ok")
       {
-        sortAndShowCategories(ORDER_ASC_BY_NAME, resultObj.data);
+        sortAndShowCategories(ORDER_ASC_BY_COST, resultObj.data);
       }
       hideSpinner();
     });
     document.getElementById("sortAsc").addEventListener("click", function(){
-    sortAndShowCategories(ORDER_ASC_BY_NAME);
+    sortAndShowCategories(ORDER_ASC_BY_COST);
     });
 
     document.getElementById("sortDesc").addEventListener("click", function(){
-    sortAndShowCategories(ORDER_DESC_BY_NAME);
+    sortAndShowCategories(ORDER_DESC_BY_COST);
     });
 
     document.getElementById("sortByCount").addEventListener("click", function(){
@@ -136,3 +136,45 @@ document.addEventListener("DOMContentLoaded", function(e){
     
 });
 });
+
+const buscador = document.getElementById("buscador");
+const resultado = document.getElementById("resultado");
+
+const filtrador = () => {
+    resultado.innerHTML = "";
+    const texto = buscador.value;
+    
+    for(let producto of currentCategoriesArray){
+        let nombre = producto.name;
+        if(nombre.indexOf(texto) !== -1){
+            resultado.innerHTML += `
+                <a href="category-info.html" class="list-group-item list-group-item-action">
+                <div class="row">
+                    <div class="col-3">
+                        <img src="` + producto.imgSrc + `" alt="` + producto.description + `" class="img-thumbnail">
+                    </div>
+                    <div class="col">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h4 class="mb-1"> ${nombre} </h4>
+                            <small class="text-muted" style="font-weight: bold">` + producto.soldCount + ` artículos vendidos</small>
+                        </div>
+                        <div class="d-flex w-100 justify-content-between">    
+                            <p class="mb-1">` + producto.description + `</p>
+                        </div><br>    
+                        <div class="d-flex w-100 justify-content-between">
+                        <p class="mb-1" style="font-weight: bold"> ${producto.currency}: ${producto.cost}</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        `
+        }
+    }
+    if(resultado.innerHTML === ""){
+        `
+            Producto no encontrado...
+        `
+    }
+}
+buscador.addEventListener("keyup", filtrador);
+filtrador();

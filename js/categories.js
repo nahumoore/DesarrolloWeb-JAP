@@ -53,7 +53,7 @@ function showCategoriesList(){
                     <div class="col">
                         <div class="d-flex w-100 justify-content-between">
                             <h4 class="mb-1">`+ category.name +`</h4>
-                            <small class="text-muted">` + category.productCount + ` artículos</small>
+                            <small class="text-muted" style="font-weight: bold">` + category.productCount + ` artículos</small>
                         </div>
                         <p class="mb-1">` + category.description + `</p>
                     </div>
