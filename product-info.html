@@ -52,6 +52,10 @@
           </div>
         </dd>
       </dl>
+      <dt>Productos relacionados</dt>
+      <dd>
+        <p id="relatedProducts"></p>
+      </dd>
       <div>
         <h3 style="text-align: center; font-size: 100;">Comentarios</h3><br>
         <p id="comentarios"></p>
@@ -60,20 +64,15 @@
       <div class="col-md-6">
         <h4>Escribe un comentario</h4>
         <input type="text" placeholder="Tu opinion..." class="form-control" id="user-comment"><br>
-        <span>Puntuación: </span><br>
-        <div class="puntuacion">
-          <input id="radio1" type="radio" name="estrellas" value="5"onclick="document.getElementById('valor').innerHTML='5'"><!--
-          --><label for="radio1">★</label><!--
-          --><input id="radio2" type="radio" name="estrellas" value="4" onclick="document.getElementById('valor').innerHTML='4'"><!--
-          --><label for="radio2">★</label><!--
-          --><input id="radio3" type="radio" name="estrellas" value="3" onclick="document.getElementById('valor').innerHTML='3'"><!--
-          --><label for="radio3">★</label><!--
-          --><input id="radio4" type="radio" name="estrellas" value="2"onclick="document.getElementById('valor').innerHTML='2'"><!--
-          --><label for="radio4">★</label><!--
-          --><input id="radio5" type="radio" name="estrellas" value="1" onclick="document.getElementById('valor').innerHTML='1'"><!--
-          --><label for="radio5">★</label><br>
-        </div><br>
-        <input type="button" value="Enviar" class="btn btn-primary" onclick="enviarFrom()">
+        <span>Puntuación: </span>
+        <select name="menu" id="puntuacion">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select><br><br>
+        <input type="button" value="Enviar" class="btn btn-primary" onclick="return enviarForm()">
       </div>
   </main>
   <footer class="text-muted">

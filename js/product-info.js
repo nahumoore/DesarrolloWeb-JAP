@@ -22,6 +22,18 @@ function showImagesGallery(array){
 
 function showComments(){
     let htmlContentToAppend = "";
+    comments.forEach(function(comment) {
+        let stars = comment.score;
+        var score = "";
+        
+        for(let i = 1; i <= stars; i++){
+            score += '<i class="fas fa-star checked"></i>';
+        }
+
+        for(let i = stars +1 ; i <= 5; i++){
+            score += '<i class="fas fa-star"></i>';
+        }
+    })
 
     for (let i = 0; i < comments.length; i++){
         let comment = comments[i];
@@ -30,12 +42,13 @@ function showComments(){
         <ul class="list-group mb-3">
                   <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
-                      <h6 class="mb-1">${comment.user}</h6>
-                      <div class="d-flex w-100 justify-content-between">  
-                      <small class="text-muted" style="font-weight: bold;">${comment.dateTime}</small><br>
+                      <strong class="mb-1">${comment.user} </strong><span>- ${comment.score}</span>
+                      <div class="col">
+                      <div class="d-flex w-100 justify-content-between">
+                      <small class="text-muted" style="font-weight: bold">${comment.dateTime}</small><br>
+                      </div>
                       </div>
                       <small class="text-muted">${comment.description}</small>
-                    </div>
                   </li>
                 </ul>
         </div>
@@ -46,13 +59,23 @@ function showComments(){
     }
 }
 
-function enviarFrom(){
-    var userComment = document.getElementById("user-comment").value;
-    localStorage.setItem("description", userComment);
+function enviarForm(){
+    
+    var descripcion = document.getElementById("user-comment").value;
+    var puntuacion = document.getElementById("puntuacion").value;
+    var user = document.getElementById("usuario").value;
+    var date = "2020-01-01 00:00:00";
+    let comentario = {};
+    
+    comentario.description = descripcion;
+    comentario.score = puntuacion;
+    comentario.user = user;
+    comentario.dateTime = date;
+    
+    comments.push(comentario);
 
+    showComments();
 
-
-    window.location.reload();
 }
 
 //Función que se ejecuta una vez que se haya lanzado el evento de
@@ -62,22 +85,25 @@ document.addEventListener("DOMContentLoaded", function(e){
     getJSONData(PRODUCT_INFO_URL).then(function(resultObj){
         if (resultObj.status === "ok")
         {
+            hideSpinner()
             category = resultObj.data;
 
             let categoryNameHTML  = document.getElementById("categoryName");
             let categoryDescriptionHTML = document.getElementById("categoryDescription");
             let productCountHTML = document.getElementById("productCount");
             let productCost = document.getElementById("productCost");
+            let relatedProducts = document.getElementById("relatedProducts");
         
             categoryNameHTML.innerHTML = category.name;
             categoryDescriptionHTML.innerHTML = category.description;
             productCountHTML.innerHTML = category.soldCount;
             productCost.innerHTML = category.cost + " USD";
+            relatedProducts.innerHTML = category.relatedProducts;
 
             //Muestro las imagenes en forma de galería
             showImagesGallery(category.images);
         }
-        hideSpinner()
+        
     });
     getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function(resultObj){
         if (resultObj.status === "ok")
