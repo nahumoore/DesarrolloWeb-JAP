@@ -2,23 +2,19 @@ var category = {};
 var comments = [];
 
 function showImagesGallery(array){
-
+    
     let htmlContentToAppend = "";
 
     for(let i = 0; i < array.length; i++){
         let imageSrc = array[i];
 
         htmlContentToAppend += `
-                <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-            <img class="d-block w-100" src="` + imageSrc + `" alt="First slide">
-            </div>
-        </div>
+        <div class="carousel-item ${ i===0 ? "active" : ""}">
+            <img src="${imageSrc}" class="d-block w-100 " alt="...">
         </div>
         `
 
-        document.getElementById("productImagesGallery").innerHTML = htmlContentToAppend;
+    document.getElementById('productImagesGallery').innerHTML=htmlContentToAppend;
     }
 }
 
@@ -64,11 +60,11 @@ function showComments(){
     }
 }
 
-function enviarForm(){
+function sendComment(){
     
     var descripcion = document.getElementById("user-comment").value;
     var puntuacion = document.getElementById("puntuacion").value;
-    var user = document.getElementById("usuario").value;
+    var user = localStorage.getItem("user");
     let comentario = {};
     
     comentario.description = descripcion;
@@ -147,12 +143,14 @@ document.addEventListener("DOMContentLoaded", function(e){
             category.relatedProducts.forEach(function(currentCategoriesArray) {
                 let productRP = products[currentCategoriesArray];
                 html += `
+                <div class="col-4 ml-10px">
                 <div class="card" style="width: 18rem;">
                 <img href="#" class="card-img-top" src="${productRP.imgSrc}">
                 <div class="card-body">
                     <h5 class="card-title">${productRP.name}</h5>
                     <p class="card-text">${productRP.description}</p>
                     <a href="#" class="btn btn-primary">Ver producto</a>
+                </div>
                 </div>
                 </div>
                 <br>

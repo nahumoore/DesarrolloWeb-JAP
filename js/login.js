@@ -18,10 +18,8 @@ function enviarForm(){
 }
 
 function cerrar(){
-
     localStorage.clear();
-    location.href="index.html"
-
+    location.href="index.html";
 }
 
 document.getElementById("usuario").innerHTML = localStorage.getItem("user");
