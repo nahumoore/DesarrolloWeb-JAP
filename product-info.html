@@ -15,6 +15,16 @@
   <link href="css/styles.css" rel="stylesheet">
 </head>
 
+<style>
+    .fas{
+    color: orange;
+  }
+
+  .far{
+    color: black;
+  }
+</style>
+
 <body>
   <nav class="site-header sticky-top py-1 bg-dark">
     <div class="container d-flex flex-column flex-md-row justify-content-between">
@@ -23,7 +33,16 @@
       <a class="py-2 d-none d-md-inline-block" href="products.html">Productos</a>
       <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
       <a class="py-2 d-none d-md-inline-block" href="cart.html">Mi carrito</a>
-      <input type="text" readonly id="usuario">
+      <div class="dropdown">
+        <span class="py-2 d-none d-md-inline-block" style="color: white;">Bienvenido: </span>
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="usuario" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+          <button class="dropdown-item" onclick="location.href='cart.html'" type="button">Ver mi carrito</button>
+          <button class="dropdown-item" onclick="location.href='my-profile.html'" type="button">Mi perfil</button>
+          <button class="dropdown-item" onclick="cerrar()" type="button">Cerrar sessión</button>
+        </div>
+      </div>
     </div>
   </nav>
   <main role="main">
@@ -51,11 +70,14 @@
           <div class="row text-center text-lg-left pt-2" id="productImagesGallery">
           </div>
         </dd>
+
+        <dt>Productos relacionados</dt><br>
+        <dd>
+          <div id="relatedProducts">
+          </div>
+        </dd>
       </dl>
-      <dt>Productos relacionados</dt>
-      <dd>
-        <p id="relatedProducts"></p>
-      </dd>
+
       <div>
         <h3 style="text-align: center; font-size: 100;">Comentarios</h3><br>
         <p id="comentarios"></p>
@@ -73,6 +95,7 @@
           <option value="5">5</option>
         </select><br><br>
         <input type="button" value="Enviar" class="btn btn-primary" onclick="return enviarForm()">
+      </div>
       </div>
   </main>
   <footer class="text-muted">
@@ -96,7 +119,7 @@
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/init.js"></script>
   <script src="js/product-info.js"></script>
-  <script>document.getElementById("usuario").value = localStorage.getItem("user");</script>
+  <script src="js/login.js"></script>
 </body>
 
 </html>

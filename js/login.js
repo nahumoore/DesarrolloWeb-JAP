@@ -15,4 +15,13 @@ function enviarForm(){
         localStorage.setItem("user", user.value);
         onclick=location.href='index2.html';
     }    
-    }
+}
+
+function cerrar(){
+
+    localStorage.clear();
+    location.href="index.html"
+
+}
+
+document.getElementById("usuario").innerHTML = localStorage.getItem("user");

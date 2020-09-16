@@ -23,7 +23,16 @@
       <a class="py-2 d-none d-md-inline-block" href="products.html">Productos</a>
       <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
       <a class="py-2 d-none d-md-inline-block" href="cart.html">Mi carrito</a>
-      <input type="text" readonly id="usuario">
+      <div class="dropdown">
+        <span class="py-2 d-none d-md-inline-block" style="color: white;">Bienvenido: </span>
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="usuario" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+          <button class="dropdown-item" onclick="location.href='cart.html'" type="button">Ver mi carrito</button>
+          <button class="dropdown-item" onclick="location.href='my-profile.html'" type="button">Mi perfil</button>
+          <button class="dropdown-item" onclick="cerrar()" type="button">Cerrar sessión</button>
+        </div>
+      </div>
     </div>
   </nav>
   <main role="main">
@@ -82,7 +91,7 @@
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/init.js"></script>
   <script src="js/category-info.js"></script>
-  <script>document.getElementById("usuario").value = localStorage.getItem("user");</script>
+  <script src="js/login.js"></script>
 </body>
 
 </html>

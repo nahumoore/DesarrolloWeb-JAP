@@ -9,10 +9,12 @@ function showImagesGallery(array){
         let imageSrc = array[i];
 
         htmlContentToAppend += `
-        <div class="col-lg-3 col-md-4 col-6">
-            <div class="d-block mb-4 h-100">
-                <img class="img-fluid img-thumbnail" src="` + imageSrc + `" alt="">
+                <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+            <img class="d-block w-100" src="` + imageSrc + `" alt="First slide">
             </div>
+        </div>
         </div>
         `
 
@@ -20,20 +22,23 @@ function showImagesGallery(array){
     }
 }
 
-function showComments(){
-    let htmlContentToAppend = "";
-    comments.forEach(function(comment) {
-        let stars = comment.score;
-        var score = "";
-        
-        for(let i = 1; i <= stars; i++){
-            score += '<i class="fas fa-star checked"></i>';
-        }
+function stars(numero){
+    let content = " ";
 
-        for(let i = stars +1 ; i <= 5; i++){
-            score += '<i class="fas fa-star"></i>';
+    for(var i = 0; i < 5; i++){
+        if(i < numero){
+            content += `<i class="fas fa-star"></i>`
+        }else{
+            content += `<i class="far fa-star"></i>`
         }
-    })
+    }
+
+    return content
+}
+
+function showComments(){
+    
+    let htmlContentToAppend = "";
 
     for (let i = 0; i < comments.length; i++){
         let comment = comments[i];
@@ -42,7 +47,7 @@ function showComments(){
         <ul class="list-group mb-3">
                   <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
-                      <strong class="mb-1">${comment.user} </strong><span>- ${comment.score}</span>
+                      <strong class="mb-1">${comment.user} </strong><span>- ${stars(comment.score)}</span>
                       <div class="col">
                       <div class="d-flex w-100 justify-content-between">
                       <small class="text-muted" style="font-weight: bold">${comment.dateTime}</small><br>
@@ -64,17 +69,38 @@ function enviarForm(){
     var descripcion = document.getElementById("user-comment").value;
     var puntuacion = document.getElementById("puntuacion").value;
     var user = document.getElementById("usuario").value;
-    var date = "2020-01-01 00:00:00";
     let comentario = {};
     
     comentario.description = descripcion;
     comentario.score = puntuacion;
     comentario.user = user;
-    comentario.dateTime = date;
+    comentario.dateTime = fecha();
     
     comments.push(comentario);
 
     showComments();
+
+}
+
+function fecha(){
+    var hoy = new Date();
+    var dd = hoy.getDate();
+    var mm = hoy.getMonth() + 1;
+    var yyyy = hoy.getFullYear();
+    var hh = hoy.getHours();
+    var minmin= hoy.getMinutes();
+    var ss = hoy.getSeconds();
+
+    if(dd < 10){
+        dd = "0" + dd;
+    }
+
+    if(mm < 10){
+        mm = "0" + mm;
+    }
+
+    hoy = yyyy + "-" + mm + "-" + dd + " " + hh + ":" + minmin + ":" + ss;
+    return hoy
 
 }
 
@@ -92,13 +118,13 @@ document.addEventListener("DOMContentLoaded", function(e){
             let categoryDescriptionHTML = document.getElementById("categoryDescription");
             let productCountHTML = document.getElementById("productCount");
             let productCost = document.getElementById("productCost");
-            let relatedProducts = document.getElementById("relatedProducts");
+
         
             categoryNameHTML.innerHTML = category.name;
             categoryDescriptionHTML.innerHTML = category.description;
             productCountHTML.innerHTML = category.soldCount;
             productCost.innerHTML = category.cost + " USD";
-            relatedProducts.innerHTML = category.relatedProducts;
+
 
             //Muestro las imagenes en forma de galería
             showImagesGallery(category.images);
@@ -110,6 +136,31 @@ document.addEventListener("DOMContentLoaded", function(e){
         {
             comments = resultObj.data;      
             showComments(comments);
+            
         }
+    });
+    getJSONData(PRODUCTS_URL).then(function(resultObj){
+        if (resultObj.status === "ok"){
+            let products = resultObj.data;
+
+            let html = " ";
+            category.relatedProducts.forEach(function(currentCategoriesArray) {
+                let productRP = products[currentCategoriesArray];
+                html += `
+                <div class="card" style="width: 18rem;">
+                <img href="#" class="card-img-top" src="${productRP.imgSrc}">
+                <div class="card-body">
+                    <h5 class="card-title">${productRP.name}</h5>
+                    <p class="card-text">${productRP.description}</p>
+                    <a href="#" class="btn btn-primary">Ver producto</a>
+                </div>
+                </div>
+                <br>
+                `
+            document.getElementById("relatedProducts").innerHTML = html;
+            })
+            
+        }
+       
     })
 });
