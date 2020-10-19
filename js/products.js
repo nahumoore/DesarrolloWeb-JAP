@@ -176,5 +176,3 @@ const filtrador = () => {
         `
     }
 }
-buscador.addEventListener("keyup", filtrador);
-filtrador();

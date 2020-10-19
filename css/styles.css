@@ -202,3 +202,14 @@ a.custom-card:hover {
   .puntuacion input:checked ~ label {
   color:orange;
   }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  .rojo{
+    color: red;
+  }
+  .verde{
+    color:green;
+  }

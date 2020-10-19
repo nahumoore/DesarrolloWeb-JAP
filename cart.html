@@ -58,25 +58,25 @@
       <tr>
         <td>
 <h3 class="col-md-4 mb-3">Tipo de envio</h3>
-        <div>
+<form>
       <div class="custom-control custom-radio">
-        <input id="premium" name="publicationType" type="radio" class="custom-control-input" checked="" required="" onclick="costoEnvio(0.15)">
+        <input id="premium" name="publicationType" type="radio" class="custom-control-input" required onclick="costoEnvio(0.15)">
         <label class="custom-control-label" for="premium">Premium (15%)</label>
       </div>
       <div class="custom-control custom-radio">
-        <input id="express" name="publicationType" type="radio" class="custom-control-input" required="" onclick="costoEnvio(0.07)">
+        <input id="express" name="publicationType" type="radio" class="custom-control-input" required onclick="costoEnvio(0.07)">
         <label class="custom-control-label" for="express">Express (7%)</label>
       </div>
       <div class="custom-control custom-radio">
-        <input id="standard" name="publicationType" type="radio" class="custom-control-input" required="" onclick="costoEnvio(0.05)">
+        <input id="standard" name="publicationType" type="radio" class="custom-control-input" required onclick="costoEnvio(0.05)">
         <label class="custom-control-label" for="standard">Standard (5%)</label>
       </div>
       <div>
         <button type="button" class="m-1 btn btn-link" data-toggle="modal" data-target="#contidionsModal">Ver condiciones</button>
       </div><br>
-    </div>
     </td>
     <td>
+    </form>
 <h4 class="col-md-4 mb-3">Costos</h4>
               <ul class="list-group mb-3">
                   <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -84,6 +84,12 @@
                       <h6 class="my-0">Subtotal</h6>
                     </div>
                     <span class="text-muted" id="subtotal"></span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                      <h6 class="my-0">Costo de envio</h6>
+                    </div>
+                    <span class="text-muted" id="CostoEnvio"></span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between">
                     <span>Total ($)</span>
@@ -98,24 +104,47 @@
     <div class="text-center p-4">
       <h2 style="color: red">Finaliza la compra</h2>
       <h3>Ingresa tus datos</h3>
+      <form class="needs-validation" id="comprar">
       <div class="row justify-content-md-center">
         <div class="col-md-3 order-md-1">
           <div class="row">
-          <input type="text" class="form-control" placeholder="Nombre"><br><br>
-          <input type="text" class="form-control" placeholder="Apellido">
-          <div class="d-block my-3">
-              <input type="radio" id="male" name="gender" value="male">
-              <label for="male">Hombre</label><br>
-              <input type="radio" id="female" name="gender" value="female">
-              <label for="female">Mujer</label>
+          <input type="text" class="form-control" id="name" placeholder="Nombre" required><br><br>
+          <input type="text" class="form-control" id="surname" placeholder="Apellido" required><br><br>
+        <input type="text" class="form-control" id="email" placeholder="Email" required><br><br>
+        <button type="button" class="btn btn-primary" style="margin:auto" data-toggle="modal" data-target="#exampleModal">
+          Forma de pago 
+        </button><span id="fdp" style="margin:auto">Seleccione una forma de pago</span>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tarjeta de credito o debito</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="tarjetaDeCredito()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                  <div class="col-md-5 order-md-1" style="margin-bottom: 10px;">
+                  <input type="radio" id="tarjeta" name="publicationType" onclick="document.getElementById('fdp').innerHTML = 'Tarjeta de credito'">
+                  <label for="tarjeta">Tarjeta de credito</label>
+                  </div>
+                  <div>
+                <input type="number" placeholder="Numero de tarjeta" class="form-control" id="creditCard" required>
+                <input type="number" placeholder="CVV" class="form-control" style="width: 130px; margin-top: 10px;" id="CVV" required>
+                <input type="date" class="form-control" style="width: 250px; margin-top: 10px;" id="date" required>
+                  </div>
+                  <div class="col-md-5 order-md-1" style="margin-top: 15px; margin-bottom: 10px;">
+                    <input type="radio" name="publicationType" id="cuenta" onclick="document.getElementById('fdp').innerHTML = 'Cuenta bancaria'">
+                    <label for="cuenta">Cuenta bancaria</label> 
+                  </div>
+                  <input class="form-control" style="width: 200px;" type="number" placeholder="Cuenta">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="tarjetaDeCredito()">Cerrar</button>
+              </div>
+            </div>
+          </div>
         </div>
-        <input type="text" class="form-control" placeholder="Email"><br><br>
-        <input type="number" class="form-control" placeholder="Tarjeta de credito o debito"><br><br>
-        <input type="number" class="form-control" placeholder="CVV"><br><br>
-        <label for="start">Fecha de vencimiento:</label>
-      <input type="date" id="start" class="form-control" name="trip-start"
-            value="2021-01-01"
-            min="2021-01-01" max="2030-12-31">
       </div>
       </div>
       </div><br>
@@ -124,13 +153,13 @@
       <div class="row justify-content-md-center">
       <div class="col-md-3 order-md-1">
         <div class="row">
-      <input type="text" class="form-control" placeholder="Calle"><br><br>
-      <input type="text" class="form-control" placeholder="Departamento"><br><br>
-      <input type="number" class="form-control" placeholder="Codigo postal"><br><br>
-      <input type="number" class="form-control" placeholder="Celular"><br><br><br>
-      <button class="btn btn-primary">Finalizar compra</button>
+      <input type="text" class="form-control" placeholder="Calle" id="calle" required><br><br>
+      <input type="text" class="form-control" placeholder="Departamento" id="departamento" required><br><br>
+      <input type="number" class="form-control" placeholder="Codigo postal" id="codp" required><br><br>
+      <input type="number" class="form-control" placeholder="Celular" id="celular" required><br><br><br>
+      <button class="btn btn-primary" style="margin:auto" onclick="buy()">Comprar</button>
         </div>
-
+        </form>
 
       <div class="modal fade" tabindex="-1" role="dialog" id="contidionsModal">
       <div class="modal-dialog" role="document">

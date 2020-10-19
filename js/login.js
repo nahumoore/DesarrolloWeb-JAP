@@ -11,7 +11,7 @@ function enviarForm(){
         alert("Ingresa tu contraseña")
         return false
     } 
-    if (pass.value.length > 0 && user.value.length > 0){
+    if (pass.value.length > 0 && user.value.length > 0){ //Puede ser una contraseña con espacios.
         localStorage.setItem("user", user.value);
         onclick=location.href='index2.html';
     }    
