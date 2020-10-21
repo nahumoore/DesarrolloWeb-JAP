@@ -60,15 +60,15 @@
 <h3 class="col-md-4 mb-3">Tipo de envio</h3>
 <form>
       <div class="custom-control custom-radio">
-        <input id="premium" name="publicationType" type="radio" class="custom-control-input" required onclick="costoEnvio(0.15)">
+        <input id="premium" name="publicationType" type="radio" class="custom-control-input" onclick="costoEnvio(0.15)">
         <label class="custom-control-label" for="premium">Premium (15%)</label>
       </div>
       <div class="custom-control custom-radio">
-        <input id="express" name="publicationType" type="radio" class="custom-control-input" required onclick="costoEnvio(0.07)">
+        <input id="express" name="publicationType" type="radio" class="custom-control-input" onclick="costoEnvio(0.07)">
         <label class="custom-control-label" for="express">Express (7%)</label>
       </div>
       <div class="custom-control custom-radio">
-        <input id="standard" name="publicationType" type="radio" class="custom-control-input" required onclick="costoEnvio(0.05)">
+        <input id="standard" name="publicationType" type="radio" class="custom-control-input" onclick="costoEnvio(0.05)">
         <label class="custom-control-label" for="standard">Standard (5%)</label>
       </div>
       <div>
@@ -108,9 +108,9 @@
       <div class="row justify-content-md-center">
         <div class="col-md-3 order-md-1">
           <div class="row">
-          <input type="text" class="form-control" id="name" placeholder="Nombre" required><br><br>
-          <input type="text" class="form-control" id="surname" placeholder="Apellido" required><br><br>
-        <input type="text" class="form-control" id="email" placeholder="Email" required><br><br>
+          <input type="text" class="form-control" id="name" placeholder="Nombre"><br><br>
+          <input type="text" class="form-control" id="surname" placeholder="Apellido"><br><br>
+        <input type="text" class="form-control" id="email" placeholder="Email"><br><br>
         <button type="button" class="btn btn-primary" style="margin:auto" data-toggle="modal" data-target="#exampleModal">
           Forma de pago 
         </button><span id="fdp" style="margin:auto">Seleccione una forma de pago</span>
@@ -153,10 +153,10 @@
       <div class="row justify-content-md-center">
       <div class="col-md-3 order-md-1">
         <div class="row">
-      <input type="text" class="form-control" placeholder="Calle" id="calle" required><br><br>
-      <input type="text" class="form-control" placeholder="Departamento" id="departamento" required><br><br>
-      <input type="number" class="form-control" placeholder="Codigo postal" id="codp" required><br><br>
-      <input type="number" class="form-control" placeholder="Celular" id="celular" required><br><br><br>
+      <input type="text" class="form-control" placeholder="Calle" id="calle"><br><br>
+      <input type="text" class="form-control" placeholder="Departamento" id="departamento"><br><br>
+      <input type="number" class="form-control" placeholder="Codigo postal" id="codp"><br><br>
+      <input type="number" class="form-control" placeholder="Celular" id="celular"><br><br><br>
       <button class="btn btn-primary" style="margin:auto" onclick="buy()">Comprar</button>
         </div>
         </form>

@@ -209,6 +209,7 @@ a.custom-card:hover {
   }
   .rojo{
     color: red;
+    font-weight: bold;
   }
   .verde{
     color:green;
