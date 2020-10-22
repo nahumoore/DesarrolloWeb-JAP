@@ -184,7 +184,13 @@ function buy(){
   }
 
   if(!faltaInfo){
-    alert("Tu compra se a realizado con exito!")
+    let msgToShowHTML = document.getElementById("resultSpan");
+    let msgToShow = "";
+
+    msgToShow = "Tu compra se a realizado con exito!";
+      document.getElementById("alertResult").classList.add('alert-success');
+      msgToShowHTML.innerHTML = msgToShow;
+      document.getElementById("alertResult").classList.add("show");
   }
 
 }
