@@ -6,6 +6,26 @@ var currentSortCriteria = undefined;
 var minCount = undefined;
 var maxCount = undefined;
 
+/* <a href="product-info.html" class="list-group-item list-group-item-action">
+<div class="row">
+    <div class="col-3">
+        <img src="` + category.imgSrc + `" alt="` + category.description + `" class="img-thumbnail">
+    </div>
+    <div class="col">
+        <div class="d-flex w-100 justify-content-between">
+            <h4 class="mb-1">`+ category.name +`</h4>
+            <small class="text-muted" style="font-weight: bold">` + category.soldCount + ` artículos vendidos</small>
+        </div>
+        <div class="d-flex w-100 justify-content-between">    
+            <p class="mb-1">` + category.description + `</p>
+        </div><br>    
+        <div class="d-flex w-100 justify-content-between">
+        <p class="mb-1" style="font-weight: bold"> ${category.currency}: ${category.cost}</p>
+        </div>
+    </div>
+</div>
+</a> */
+
 function showCategoriesList(){
 
     let htmlContentToAppend = "";
@@ -15,25 +35,22 @@ function showCategoriesList(){
             ((maxCount == undefined) || (maxCount != undefined && parseInt(category.cost) <= maxCount))){
 
             htmlContentToAppend += `
-            <a href="product-info.html" class="list-group-item list-group-item-action">
-                <div class="row">
-                    <div class="col-3">
-                        <img src="` + category.imgSrc + `" alt="` + category.description + `" class="img-thumbnail">
-                    </div>
-                    <div class="col">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h4 class="mb-1">`+ category.name +`</h4>
-                            <small class="text-muted" style="font-weight: bold">` + category.soldCount + ` artículos vendidos</small>
-                        </div>
-                        <div class="d-flex w-100 justify-content-between">    
-                            <p class="mb-1">` + category.description + `</p>
-                        </div><br>    
-                        <div class="d-flex w-100 justify-content-between">
-                        <p class="mb-1" style="font-weight: bold"> ${category.currency}: ${category.cost}</p>
-                        </div>
-                    </div>
+            <div class="col-md-4">
+            <a href="product-info.html" class="list-group-item-action">
+              <div class="card mb-4 shadow-sm">
+              <img src="${category.imgSrc}" class="img-thumbnail">
+                <div class="card-body">
+                  <h3><b>${category.name}</b></h3>
+                  <h5>${category.description}</h5><br>
+                  <h4><b>${category.currency} ${category.cost}</b></h4>
+                  
+                  <div class="d-flex justify-content-between align-items-center">
+                    <small>Artículos vendidos: ${category.soldCount}</small>
+                  </div>
                 </div>
-            </a>
+              </div>
+              </a>
+            </div>
             `
         }
         document.getElementById("info").innerHTML = htmlContentToAppend;
@@ -136,43 +153,3 @@ document.addEventListener("DOMContentLoaded", function(e){
     
 });
 });
-
-const buscador = document.getElementById("buscador");
-const resultado = document.getElementById("resultado");
-
-const filtrador = () => {
-    resultado.innerHTML = "";
-    const texto = buscador.value;
-    
-    for(let producto of currentCategoriesArray){
-        let nombre = producto.name;
-        if(nombre.indexOf(texto) !== -1){
-            resultado.innerHTML += `
-                <a href="product-info.html" class="list-group-item list-group-item-action">
-                <div class="row">
-                    <div class="col-3">
-                        <img src="` + producto.imgSrc + `" alt="` + producto.description + `" class="img-thumbnail">
-                    </div>
-                    <div class="col">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h4 class="mb-1"> ${nombre} </h4>
-                            <small class="text-muted" style="font-weight: bold">` + producto.soldCount + ` artículos vendidos</small>
-                        </div>
-                        <div class="d-flex w-100 justify-content-between">    
-                            <p class="mb-1">` + producto.description + `</p>
-                        </div><br>    
-                        <div class="d-flex w-100 justify-content-between">
-                        <p class="mb-1" style="font-weight: bold"> ${producto.currency}: ${producto.cost}</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        `
-        }
-    }
-    if(resultado.innerHTML === ""){
-        `
-            Producto no encontrado...
-        `
-    }
-}
